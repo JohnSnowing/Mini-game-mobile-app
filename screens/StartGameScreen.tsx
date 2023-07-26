@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 
 type StartGameScreenProps = {};
 
 const StartGameScreen: React.FC<StartGameScreenProps> = () => {
+  const [enteredNumber, setEnteredNumber] = useState("");
+
+  const numberInputHandler = (enteredText: string) => {
+    setEnteredNumber(enteredText);
+  };
+
+  const confirmInputHandler = () => {
+    const chosenNumber = parseInt(enteredNumber);
+    if (isNaN(chosenNumber)) {
+    } else {
+    }
+  };
+
+  const resetInputHandler = () => {};
+
   return (
     <View style={styles.inputContainer}>
       <TextInput
@@ -13,9 +28,17 @@ const StartGameScreen: React.FC<StartGameScreenProps> = () => {
         keyboardType="number-pad"
         autoCapitalize="none"
         autoCorrect={false}
+        onChangeText={numberInputHandler}
+        value={enteredNumber}
       />
-      <PrimaryButton>Reset</PrimaryButton>
-      <PrimaryButton>Confirm</PrimaryButton>
+      <View style={styles.buttonsContainer}>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+        </View>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+        </View>
+      </View>
     </View>
   );
 };
@@ -23,9 +46,11 @@ export default StartGameScreen;
 
 const styles = StyleSheet.create({
   inputContainer: {
+    justifyContent: "center",
+    alignItems: "center",
     padding: 16,
     marginTop: 100,
-    backgroundColor: "#72063C",
+    backgroundColor: "#3b021f",
     marginHorizontal: 24,
     borderRadius: 8,
     elevation: 2,
@@ -45,6 +70,13 @@ const styles = StyleSheet.create({
     width: 50,
     textAlign: "center",
   },
+  buttonsContainer: {
+    flexDirection: "row",
+  },
+  buttonContainer: {
+    flex: 1,
+  },
+  //flex 1 para ma extend ang div to full size ang remaining space
 });
 
 // elevation is boxshadow in react android only
